@@ -113,26 +113,23 @@ bot.on("messageCreate", async msg => {
     let m = await msg.channel.send("Loading... <a:loading:953360291511562372>");
     let top = Object.entries(lb).sort((a, b) => b[1] - a[1]);
     let count = 0, topu = 0, tope = [];
-    async function fetchMember() {
+    while (count < 3) {
       if (topu > (top.length - 1)) {
         while (count < 3) {
           tope.push("No user found");
           count++;
         };
-        return;
+        break;
       };
       try {
         await msg.guild.members.fetch(top[topu][0]);
       } catch {
         topu++;
-        return;
+        continue;
       };
       tope.push(`<@!${top[topu][0]}> - ${top[topu][1]} points`);
       count++;
       topu++;
-    };
-    while (count < 3) {
-      fetchMember();
     };
     let e = new Discord.MessageEmbed().setDescription(`🥇 ${tope[0]}\n\n🥈 ${tope[1]}\n\n🥉 ${tope[2]}`);
     m.edit({ content: `Top 3 players in **${msg.guild.name}**`, embeds: [e] });

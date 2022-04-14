@@ -110,6 +110,9 @@ bot.on("messageCreate", async msg => {
     };
 
     if (msg.content.toLowerCase() == "wordle top") {
+        async function fetchMember(memID) {
+          await msg.guild.members.fetch(memID);
+        };
         let m = await msg.channel.send("Loading... <a:loading:953360291511562372>");
         let top = Object.entries(lb).sort((a, b) => b[1] - a[1]);
         let count = 0, topu = 0, tope = [];
@@ -122,7 +125,7 @@ bot.on("messageCreate", async msg => {
                 break;
             };
             try {
-                await msg.guild.members.fetch(top[topu][0]);
+                fetchMember(top[topu][0]);
             } catch {
                 topu++;
                 continue;

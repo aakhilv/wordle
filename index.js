@@ -111,7 +111,7 @@ bot.on("messageCreate", async msg => {
   if (msg.content.toLowerCase() == "wordle difficulty") {
     if (db[msg.guild.id].d == "easy") {
       db[msg.guild.id].d = "hard";
-    } else if (db[msg.guild.id].d == "hard") {
+    } else {
       db[msg.guild.id].d = "easy";
     };
     msg.channel.send(`Set wordle difficulty to **${db[msg.guild.id].d}**.`);

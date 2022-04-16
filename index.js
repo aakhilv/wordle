@@ -3,6 +3,7 @@ let bot = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.I
 let fs = require("fs");
 let words = require(__dirname + "/db/words.json");
 let allwords = require(__dirname + "/db/allwords.json");
+let hardwords = words.concat(allwords);
 let db = require(__dirname + "/db/db.json");
 let lb = require(__dirname + "/db/lb.json");
 
@@ -53,6 +54,7 @@ bot.on("messageCreate", async msg => {
   if (msg.content.toLowerCase() == "new wordle") {
     if (JSON.stringify(db).includes(msg.guild.id) && db[msg.guild.id].g) return msg.channel.send("There is already an ongoing game. Type **`guess {your guess}`** to join the round.");
     let wordle = words[Math.floor(Math.random() * words.length)];
+    if (db[msg.guild.id].d == "hard") wordle = hardwords[Math.floor(Math.random() * hardwords.length)];
     db[msg.guild.id] = {
       g: true,
       w: wordle.split(""),
@@ -104,6 +106,15 @@ bot.on("messageCreate", async msg => {
     msg.channel.send(`Aw, you gave up... The correct word was **${db[msg.guild.id].w.join("")}**.`);
     db[msg.guild.id].g = false;
     fs.writeFile("./db/db.json", JSON.stringify(db), (err) => { if (err) throw err });
+  };
+  
+  if (msg.content.toLowerCase() == "wordle difficulty") {
+    if (db[msg.guild.id].d == "easy") {
+      db[msg.guild.id].d = "hard";
+    } else if (db[msg.guild.id].d == "hard") {
+      db[msg.guild.id].d = "easy";
+    };
+    msg.channel.send(`Set wordle difficulty to **${db[msg.guild.id].d}**.`);
   };
 
   if (msg.content.toLowerCase() == "wordle points") {

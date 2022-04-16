@@ -39,6 +39,7 @@ bot.on("messageCreate", async msg => {
       .addField("new wordle", "Starts a new wordle game.")
       .addField("guess {your guess}", "Enters your guess into an ongoing game.")
       .addField("quit wordle", "Stops the current wordle game.")
+      .addField("wordle difficulty", "Alternates the wordle difficulty between **easy** and **hard**.")
       .addField("wordle points", "Shows your total wordle points.")
       .addField("wordle top", "Shows the top three wordle players in your server.");
     msg.channel.send({ embeds: [e] });
@@ -57,6 +58,7 @@ bot.on("messageCreate", async msg => {
       w: wordle.split(""),
       gs: [],
       t: 0,
+      d: db[msg.guild.id].d || "easy"
     };
     fs.writeFile("./db/db.json", JSON.stringify(db), (err) => { if (err) throw err });
     msg.channel.send("A new wordle game has started. Type **`guess {your guess}`** to start playing.");

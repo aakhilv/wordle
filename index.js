@@ -149,4 +149,4 @@ bot.on("messageCreate", async msg => {
   };
 });
 
-bot.login("OTQwNjk4ODQyMzkzODc4NTc4.YgLMEQ._uxpLuZ6BsAY-f-LXwrrxrn4c3U");
+bot.login("[insert token here]");

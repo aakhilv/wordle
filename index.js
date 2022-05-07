@@ -82,7 +82,7 @@ bot.on("messageCreate", async msg => {
       if (points < 0) points = 0;
       msg.channel.send({
         content: `Correct! You guessed it in **${db[msg.guild.id].t}** tries. You gained ${points} points.`, files: [{
-          attachment: `https://api.aakhilv.me/wordle/${db[msg.guild.id].w.join("")}/${guess}`,
+          attachment: `https://api.akhilv.co/wordle/${db[msg.guild.id].w.join("")}/${guess}`,
           name: "wordle.png"
         }]
       });
@@ -93,7 +93,7 @@ bot.on("messageCreate", async msg => {
     };
     msg.channel.send({
       files: [{
-        attachment: `https://api.aakhilv.me/wordle/${db[msg.guild.id].w.join("")}/${guess}`,
+        attachment: `https://api.akhilv.co/wordle/${db[msg.guild.id].w.join("")}/${guess}`,
         name: "wordle.png"
       }]
     });
